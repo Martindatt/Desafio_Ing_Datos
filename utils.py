@@ -99,28 +99,32 @@ except RuntimeError as e:
     raise RuntimeError(f"Error en la conexión a la API: {e}")
 
 
-
 "EXTRAER DICCIONARIOS CON CLAVE"
 
-def extract (df, column,key):
+
+def extraer_dicc(df, column, key):
 
     # Lista para almacenar los diccionarios
     platforms_data = []
 
-    # Iterar sobre las filas del DataFrame
+    # Itera sobre las filas del DataFrame
     for _, row in df.iterrows():
         # Información de la columna especificada
         platforms_info = row[column]
 
-        # Iterar sobre los diccionarios dentro de la lista (extraer y agregar a la lista)
+        # Itera sobre los diccionarios dentro de la lista (extrae y agrega a la lista)
         for platform_dict in platforms_info:
             platform_info = platform_dict[key]
             platforms_data.append(platform_info)
 
-    # Crear un nuevo DataFrame llamado 
-    result_df = pd.DataFrame(platforms_data).drop_duplicates().set_index('id')
+    # Crear el nuevo DataFrame
+    result_df = pd.DataFrame(platforms_data).drop_duplicates().set_index("id")
 
     return result_df
 
 
+"EXTRAER ID DE LA LISTA DE DICCIONARIO"
 
+
+def extraer_id(lst, key):
+    return [item[key]["id"] for item in lst]
